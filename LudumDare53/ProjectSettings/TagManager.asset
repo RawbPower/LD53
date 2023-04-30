@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3958775941
+    locked: 0
+  - name: Truck
+    uniqueID: 897485553
+    locked: 0
+  - name: Packages
+    uniqueID: 836639985
+    locked: 0
+  - name: UI
+    uniqueID: 2019294949
+    locked: 0
