@@ -34,6 +34,10 @@ public class GlobalAudioManager : MonoBehaviour
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
             s.source.outputAudioMixerGroup = s.output;
+            if (s.playOnStart)
+            {
+                s.source.Play();
+            }
         }
     }
 

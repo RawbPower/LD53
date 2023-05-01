@@ -30,22 +30,12 @@ public class DropOffZone : MonoBehaviour
                 {
                     packageInfo.isDelivered = true;
                     gameManager.packageTransforms[package.gameObject.name] = packageInfo;
-
-                    int deliveredCount = 0;
-
-                    foreach (KeyValuePair<string, PackageInfo> pair in gameManager.packageTransforms)
-                    {
-                        if (pair.Value.isDelivered)
-                        {
-                            deliveredCount += 1;
-                        }
-                    }
-
-                    Debug.Log("Delivered: " + deliveredCount);
+                    int deliveredCount = gameManager.GetDelivered();
 
                     if (deliveredCount == 8)
                     {
-                        gameManager.ResetGame();
+                        gameManager.WinLevel();
+                        //gameManager.ResetGame();
                     }
                 }
             }

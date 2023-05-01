@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8173321978241840531
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8173321978241840493}
+  - component: {fileID: 8173321978241840530}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8173321978241840493
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8173321978241840531}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.5933728, y: 1.2866348, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8173321978241840530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8173321978241840531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9895326f16ab1744582e61f3852d3310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Pop1
+    clip: {fileID: 8300000, guid: f262e8e2ea20c144d990632b363db0c5, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    playOnStart: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: Pop2
+    clip: {fileID: 8300000, guid: 199c9ef4cb6f12544ba7edb871d08701, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    playOnStart: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: Pop3
+    clip: {fileID: 8300000, guid: 364b4b363b7e89c42b8ad8941fa6a647, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    playOnStart: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: Pop4
+    clip: {fileID: 8300000, guid: 79714d7f9ddf674469b867e29295f3eb, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    playOnStart: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: Pop5
+    clip: {fileID: 8300000, guid: 05b1a26eb443ce94b8b31f8efc0e60f5, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    playOnStart: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: Pop6
+    clip: {fileID: 8300000, guid: f8809dba46364af479bee347c60191e6, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    playOnStart: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: Theme
+    clip: {fileID: 8300000, guid: 8d84dfda94a78a04f88ab5d5060030ca, type: 3}
+    volume: 0.868
+    pitch: 1
+    loop: 1
+    playOnStart: 1
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: Engine
+    clip: {fileID: 8300000, guid: 7e8c6b0b37eb4d04d822c161b7032881, type: 3}
+    volume: 0.868
+    pitch: 1
+    loop: 0
+    playOnStart: 0
+    output: {fileID: 0}
+    source: {fileID: 0}
+  - name: Drive
+    clip: {fileID: 8300000, guid: f08b9605edfa4bb40813f01ab767aec6, type: 3}
+    volume: 0.566
+    pitch: 1
+    loop: 1
+    playOnStart: 0
+    output: {fileID: 0}
+    source: {fileID: 0}

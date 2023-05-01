@@ -32,6 +32,7 @@ public class Package : MonoBehaviour
 
     public void HighlightPackage()
     {
+        highlightMaterial.SetColor("_SwapColor", defaultMaterial.GetColor("_Color"));
         spriteRenderer.material = highlightMaterial;
     }
 

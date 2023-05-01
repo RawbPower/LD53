@@ -7,6 +7,11 @@ public class BuildingManager
 {
     static public void GoToBuilding(string buildingName)
     {
-        SceneManager.LoadScene(0);
+        GlobalAudioManager audioManager = GlobalAudioManager.instance;
+        if (audioManager.IsPlaying("Drive"))
+        {
+            audioManager.Stop("Drive");
+        }
+        SceneManager.LoadScene(GameManager.instance.GetCurrentVanScene());
     }
 }

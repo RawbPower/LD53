@@ -6,7 +6,12 @@ using UnityEngine.InputSystem;
 public class Van : MonoBehaviour
 {
     public float speed;
+    public float acceleration;
+    public float maxSpeed;
+    public float movingFriction;
+    public float stoppingFriction;
     public GameObject parking;
+    public ParticleSystem engineParticles;
 
     private string building = "";
     private bool accelerate;
@@ -36,13 +41,38 @@ public class Van : MonoBehaviour
     {
         if (accelerate)
         {
+            var shape = engineParticles.shape;
+            float rotation = !sprite.flipX ? -90.0f : 90.0f;
+            shape.rotation = new Vector3(0.0f, rotation, 0.0f);
+            float xOffset = !sprite.flipX ? -0.75f : 0.75f;
+            shape.position = new Vector3(xOffset, shape.position.y, shape.position.z);
+            if (!engineParticles.isPlaying)
+            {
+                engineParticles.Play();
+            }
+            GlobalAudioManager audioManager = GlobalAudioManager.instance;
+            if (!audioManager.IsPlaying("Drive"))
+            {
+                audioManager.Play("Drive");
+            }
             Vector2 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
             Vector2 mouseDirection = mouseWorldPosition - rg.position;
             if (mouseDirection.sqrMagnitude > 0.5)
             {
                 mouseDirection.Normalize();
 
-                rg.MovePosition(rg.position + mouseDirection * speed * Time.fixedDeltaTime);
+                rg.velocity += mouseDirection * acceleration * Time.fixedDeltaTime;
+
+                Vector2 velocityDirection = rg.velocity.normalized;
+                Vector2 frictionDirection = velocityDirection - Vector2.Dot(velocityDirection, mouseDirection) * mouseDirection;
+                rg.velocity -= movingFriction * frictionDirection;
+
+                if (rg.velocity.sqrMagnitude > maxSpeed * maxSpeed)
+                {
+                    rg.velocity = velocityDirection * maxSpeed;
+                }
+
+                //rg.MovePosition(rg.position + mouseDirection * speed * Time.fixedDeltaTime);
 
                 if (mouseDirection.x < 0.0f)
                 {
@@ -53,6 +83,21 @@ public class Van : MonoBehaviour
                     sprite.flipX = false;
                 }
             }
+        }
+        else
+        {
+            if (engineParticles.isPlaying)
+            {
+                engineParticles.Stop();
+            }
+
+            GlobalAudioManager audioManager = GlobalAudioManager.instance;
+            if (audioManager.IsPlaying("Drive"))
+            {
+                audioManager.Stop("Drive");
+            }
+            Vector2 velocityDirection = rg.velocity.normalized;
+            rg.velocity -= stoppingFriction * velocityDirection;
         }
     }
 
@@ -67,7 +112,7 @@ public class Van : MonoBehaviour
         {
             if (building != "")
             {
-                GameManager gameManager = FindObjectOfType<GameManager>();
+                GameManager gameManager = GameManager.instance;
                 gameManager.buildingInfo.currentLocation = building;
                 gameManager.buildingInfo.cachedMapLocation = UIMap.GetMapPositionFromWorldPosition(transform.position);
                 foreach (Parking parkingSpot in parking.GetComponentsInChildren<Parking>())

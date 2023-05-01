@@ -24,6 +24,16 @@ public class Menus : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void NextScene()
+    {
+        int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
+        if (nextScene >= SceneManager.sceneCountInBuildSettings)
+        {
+            nextScene = 0;
+        }
+        SceneManager.LoadScene(nextScene);
+    }
+
     public void SettingsMenu()
     {
         SceneManager.LoadScene(1);
@@ -36,7 +46,7 @@ public class Menus : MonoBehaviour
 
     public void HowToPlay()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        SceneManager.LoadScene(10);
     }
 
     public void DriveScene()
@@ -46,6 +56,25 @@ public class Menus : MonoBehaviour
 
     public void LoadingScene()
     {
-        SceneManager.LoadScene(0);
+        if (GameManager.instance != null && GameManager.instance.IsValid())
+        {
+            SceneManager.LoadScene(GameManager.instance.GetCurrentVanScene());
+        }
+        else
+        {
+            SceneManager.LoadScene(4);
+        }
+    }
+
+    public void ResetGame()
+    {
+        if (GameManager.instance != null && GameManager.instance.IsValid())
+        {
+            GameManager.instance.RestProgress();
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 }

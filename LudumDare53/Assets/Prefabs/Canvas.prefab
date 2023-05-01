@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3be7c1b3c7c6c0e438b2aaefd3b154ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showCursor: 1
+  showCursor: 0
   parentCanvas: {fileID: 6615563208670794653}
 --- !u!222 &6615563208778295978
 CanvasRenderer:

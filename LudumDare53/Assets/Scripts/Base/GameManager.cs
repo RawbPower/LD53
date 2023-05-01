@@ -30,10 +30,14 @@ public struct BuildingInfo
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public float timeLimit;
+    private float timer = 0.0f;
     private int musicVolumeIndex = -1;
     private int sfxVolumeIndex = -1;
     private int screenSizeIndex = -1;
     private int fullScreenIndex = -1;
+    private int currentVanSceneIndex = 0;
+    private int[] vanScenes = { 4, 5, 6, 7, 8 };
 
     public Dictionary<string, PackageInfo> packageTransforms;
     public BuildingInfo buildingInfo;
@@ -53,11 +57,24 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
 
+        currentVanSceneIndex = 0;
         packageTransforms = new Dictionary<string, PackageInfo>();
         buildingInfo = new BuildingInfo();
         buildingInfo.currentLocation = "";
         buildingInfo.cachedMapLocation = new Vector2(134.0f, 85.0f);
         buildingInfo.buildingSprite = null;
+    }
+
+    public void Update()
+    {
+        if (timeLimit > 0.0)
+        {
+            timer += Time.deltaTime;
+            if (timer > timeLimit)
+            {
+                LoseLevel();
+            }
+        }
     }
 
     public void StartPause(float pauseTime)
@@ -118,6 +135,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame()
     {
+        timer = 0.0f;
         packageTransforms = new Dictionary<string, PackageInfo>();
         buildingInfo = new BuildingInfo();
         buildingInfo.currentLocation = "";
@@ -125,7 +143,70 @@ public class GameManager : MonoBehaviour
         buildingInfo.buildingSprite = null;
         buildingInfo.colourCode = "";
 
+        SceneManager.LoadScene(vanScenes[currentVanSceneIndex]);
+    }
+
+    public void LoseLevel()
+    {
+        ResetGame();
+        SceneManager.LoadScene(2);
+    }
+
+    public void WinLevel()
+    {
+        currentVanSceneIndex += 1;
+        if (currentVanSceneIndex >= vanScenes.Length)
+        {
+            currentVanSceneIndex = 0;
+            ResetGame();
+            SceneManager.LoadScene(9);
+        }
+        else
+        {
+            ResetGame();
+            SceneManager.LoadScene(3);
+        }
+    }
+
+    public void RestProgress()
+    {
+        currentVanSceneIndex = 0;
         SceneManager.LoadScene(0);
+    }
+
+    public int GetCurrentVanScene()
+    {
+        return vanScenes[currentVanSceneIndex];
+    }
+
+    public int GetDelivered()
+    {
+        int deliveredCount = 0;
+
+        foreach (KeyValuePair<string, PackageInfo> pair in packageTransforms)
+        {
+            if (pair.Value.isDelivered)
+            {
+                deliveredCount += 1;
+            }
+        }
+
+        return deliveredCount;
+    }
+
+    public float GetTime()
+    {
+        return timer;
+    }
+
+    public int GetDay()
+    {
+        return currentVanSceneIndex+1;
+    }
+
+    public bool IsValid()
+    {
+        return SceneManager.GetActiveScene().buildIndex > 0;
     }
 }
 
